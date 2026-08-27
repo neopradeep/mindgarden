@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindGarden</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Personal learning space</p>
+          <h1>Sort the noise into a gentler next step.</h1>
+          <p class="hero-copy">
+            Capture ideas, terms from meetings, and learning topics in one place.
+            Then move them into focus when the timing feels right.
+          </p>
+        </div>
+        <div class="hero-card">
+          <p class="hero-card-label">Today</p>
+          <p class="hero-card-value" id="focusCount">0</p>
+          <p class="hero-card-copy">items in Focus Now</p>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel review-panel">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Review today</p>
+              <h2>Resurface the things that should not disappear.</h2>
+            </div>
+            <p class="section-caption" id="reviewSummary">
+              Nothing due yet.
+            </p>
+          </div>
+          <div id="reviewList" class="review-list empty-state">
+            Review items will appear here when they are due.
+          </div>
+        </section>
+
+        <section class="panel composer-panel">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Capture</p>
+              <h2>Add a topic, term, or idea.</h2>
+            </div>
+          </div>
+
+          <form id="itemForm" class="item-form">
+            <label>
+              <span>Title</span>
+              <input
+                id="titleInput"
+                name="title"
+                type="text"
+                maxlength="120"
+                placeholder="e.g. Vector indexes for GraphRAG"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Type</span>
+              <select id="typeInput" name="type">
+                <option value="learning">Learning topic</option>
+                <option value="term">Term / jargon</option>
+                <option value="idea">Idea</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Notes (optional)</span>
+              <textarea
+                id="notesInput"
+                name="notes"
+                rows="3"
+                maxlength="500"
+                placeholder="Why this matters, where you heard it, or what to revisit later."
+              ></textarea>
+            </label>
+
+            <button type="submit" class="primary-button">Add item</button>
+          </form>
+        </section>
+
+        <section class="board" aria-label="Priority board">
+          <div class="board-column panel" data-column="inbox">
+            <div class="column-header">
+              <h3>Inbox</h3>
+              <span id="count-inbox" class="count-badge">0</span>
+            </div>
+            <p class="column-copy">
+              A holding area for everything you want to keep.
+            </p>
+            <div class="drop-zone" id="column-inbox"></div>
+          </div>
+
+          <div class="board-column panel" data-column="focus">
+            <div class="column-header">
+              <h3>Focus Now</h3>
+              <span id="count-focus" class="count-badge">0</span>
+            </div>
+            <p class="column-copy">The few things worth your attention today.</p>
+            <div class="drop-zone" id="column-focus"></div>
+          </div>
+
+          <div class="board-column panel" data-column="soon">
+            <div class="column-header">
+              <h3>Explore Soon</h3>
+              <span id="count-soon" class="count-badge">0</span>
+            </div>
+            <p class="column-copy">
+              Interesting threads you want to come back to soon.
+            </p>
+            <div class="drop-zone" id="column-soon"></div>
+          </div>
+
+          <div class="board-column panel" data-column="later">
+            <div class="column-header">
+              <h3>Later</h3>
+              <span id="count-later" class="count-badge">0</span>
+            </div>
+            <p class="column-copy">
+              Safe storage for things you do not want to lose.
+            </p>
+            <div class="drop-zone" id="column-later"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="cardTemplate">
+      <article class="item-card" draggable="true">
+        <div class="item-card-top">
+          <span class="type-pill"></span>
+          <button type="button" class="ghost-button review-button">
+            Reviewed
+          </button>
+        </div>
+        <h4 class="item-title"></h4>
+        <p class="item-notes"></p>
+        <div class="item-meta">
+          <span class="next-review"></span>
+          <span class="last-reviewed"></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
